@@ -1,0 +1,7 @@
+/Software/
+/Install/
+/data/
+*.jar
+*.zip
+*.log
+target/
