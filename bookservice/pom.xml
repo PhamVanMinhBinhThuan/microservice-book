@@ -71,11 +71,11 @@
 			<artifactId>guava</artifactId>
 			<version>33.2.1-jre</version>
 		</dependency>
-		<!-- <dependency>
+		<dependency>
 			<groupId>com.ltfullstack</groupId>
 			<artifactId>commonservice</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
-		</dependency> -->
+		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-validation -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
