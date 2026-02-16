@@ -1,22 +1,18 @@
-package com.ltfullstack.bookservice.command.data;
+package com.ltfullstack.bookservice.command.command;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import org.axonframework.modelling.command.TargetAggregateIdentifier;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity
-@Table(name = "books")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Book {
-    @Id
+public class UpdateBookCommand {
+    @TargetAggregateIdentifier
     private String id;
 
     private String name;
