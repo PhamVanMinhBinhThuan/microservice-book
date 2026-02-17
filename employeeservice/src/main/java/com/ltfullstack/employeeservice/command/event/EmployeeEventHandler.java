@@ -1,4 +1,4 @@
-package com.ltfullstack.employeeservice.command.data;
+package com.ltfullstack.employeeservice.command.event;
 
 import java.util.Optional;
 
@@ -7,8 +7,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.ltfullstack.employeeservice.command.event.EmployeeCreatedEvent;
-import com.ltfullstack.employeeservice.command.event.EmployeeUpdatedEvent;
+import com.ltfullstack.employeeservice.command.data.Employee;
+import com.ltfullstack.employeeservice.command.data.EmployeeRepository;
 
 import jakarta.ws.rs.NotFoundException;
 
@@ -36,5 +36,11 @@ public class EmployeeEventHandler {
         employee.setIsDisciplined(event.getIsDisciplined());
         
         employeeRepository.save(employee);
+    }
+
+    @EventHandler
+    private void on(EmployeeDeletedEvent event) throws Exception {
+        employeeRepository.findById(event.getId()).orElseThrow(() -> new Exception("Employee not found"));
+        employeeRepository.deleteById(event.getId());
     }
 }
