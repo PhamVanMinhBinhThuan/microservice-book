@@ -6,9 +6,13 @@ spring:
         name: gateway-service
     cloud:
         gateway:
+            discovery:
+                locator:
+                    enabled: true
+                    lower-case-service-id: true
             routes:
                 - id: employeeservice
-                  uri: http://localhost:9003
+                  uri: lb://employeeservice
                   predicates:
                     - Path=/api/v1/employees/**
 
