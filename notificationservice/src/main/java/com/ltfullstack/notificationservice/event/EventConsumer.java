@@ -1,5 +1,8 @@
 package com.ltfullstack.notificationservice.event;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.kafka.common.errors.RetriableException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.DltHandler;
@@ -52,4 +55,14 @@ public class EventConsumer {
 
         emailService.sendEmail(message, "Thanks for buy my course", filledTemplate, true, null);
     } 
+
+    @KafkaListener(topics = "emailTemplate", containerFactory = "kafkaListenerContainerFactory")
+    public void emailTemplate(String message) {
+        log.info("Received message: " + message);
+
+        Map<String, Object> placeholders = new HashMap<>();
+        placeholders.put("name", "Pham Van Minh");
+
+        emailService.sendEmailWithTemplate(message, "Welcome to Christmas", "emailTemplate.ftl", placeholders, null);
+    }
 }
