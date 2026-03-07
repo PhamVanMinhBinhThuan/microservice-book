@@ -4,6 +4,23 @@ server:
 spring:
   application:
     name: employeeservice
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: employeeservice
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: pvminh23@clc.fitus.edu.vn
+    password: rsldjyuwflsatmgt
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+        transport:
+          protocol: smtp
 
 eureka:
   instance:
