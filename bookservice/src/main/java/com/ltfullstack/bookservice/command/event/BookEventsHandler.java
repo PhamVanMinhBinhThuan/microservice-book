@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import com.ltfullstack.bookservice.command.data.Book;
 import com.ltfullstack.bookservice.command.data.BookRepository;
+import com.ltfullstack.commonservice.event.BookUpdateStatusEvent;
 
 @Component
 public class BookEventsHandler {
@@ -21,6 +22,17 @@ public class BookEventsHandler {
         Book book = new Book();
         BeanUtils.copyProperties(event, book);
         bookRepository.save(book);
+    }
+
+    @EventHandler
+    public void on(BookUpdateStatusEvent event) {
+        Optional<Book> oldBook = bookRepository.findById(event.getBookId());
+        
+        oldBook.ifPresent(book -> {
+            book.setIsReady(event.getIsReady());
+
+            bookRepository.save(book);
+        });
     }
 
     @EventHandler

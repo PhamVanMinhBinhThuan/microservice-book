@@ -12,7 +12,8 @@ import com.ltfullstack.bookservice.command.data.Book;
 import com.ltfullstack.bookservice.command.data.BookRepository;
 import com.ltfullstack.bookservice.query.model.BookResponseModel;
 import com.ltfullstack.bookservice.query.queries.GetAllBookQuery;
-import com.ltfullstack.bookservice.query.queries.GetBookDetailQuery;
+import com.ltfullstack.commonservice.model.BookResponseCommonModel;
+import com.ltfullstack.commonservice.queries.GetBookDetailQuery;
 
 @Component
 public class BookProjection {
@@ -33,8 +34,8 @@ public class BookProjection {
     }
 
     @QueryHandler
-    public BookResponseModel handle(GetBookDetailQuery query) throws Exception {
-        BookResponseModel bookResponseModel = new BookResponseModel();
+    public BookResponseCommonModel handle(GetBookDetailQuery query) throws Exception {
+        BookResponseCommonModel bookResponseModel = new BookResponseCommonModel();
          
         Book book = bookRepository.findById(query.getId()).orElseThrow(() -> new Exception("Not found Book with BookId: " + query.getId()));
 

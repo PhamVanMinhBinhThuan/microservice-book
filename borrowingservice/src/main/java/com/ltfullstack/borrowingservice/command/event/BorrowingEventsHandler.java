@@ -1,5 +1,7 @@
 package com.ltfullstack.borrowingservice.command.event;
 
+import java.util.Optional;
+
 import org.axonframework.eventhandling.EventHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -21,5 +23,11 @@ public class BorrowingEventsHandler {
         model.setEmployeeId(event.getEmployeeId());
         model.setBorrowingDate(event.getBorrowingDate());
         borrowingRepository.save(model);
+    }
+
+    @EventHandler
+    public void on(BorrowingDeletedEvent event) {
+        Optional<Borrowing> oldEntity = borrowingRepository.findById(event.getId());
+        oldEntity.ifPresent(borrowing -> borrowingRepository.delete(borrowing));
     }
 }

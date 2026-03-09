@@ -14,7 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ltfullstack.bookservice.query.model.BookResponseModel;
 import com.ltfullstack.bookservice.query.queries.GetAllBookQuery;
-import com.ltfullstack.bookservice.query.queries.GetBookDetailQuery;
+import com.ltfullstack.commonservice.model.BookResponseCommonModel;
+import com.ltfullstack.commonservice.queries.GetBookDetailQuery;
 import com.ltfullstack.commonservice.services.KafkaService;
 
 @RestController
@@ -34,9 +35,9 @@ public class BookQueryController {
     }
 
     @GetMapping("/{bookId}")
-    public BookResponseModel getBookDetail(@PathVariable String bookId) {
+    public BookResponseCommonModel getBookDetail(@PathVariable String bookId) {
         GetBookDetailQuery query = new GetBookDetailQuery(bookId);
-        return queryGateway.query(query, ResponseTypes.instanceOf(BookResponseModel.class)).join();
+        return queryGateway.query(query, ResponseTypes.instanceOf(BookResponseCommonModel.class)).join();
     }
 
     @PostMapping("/sendMessage")
