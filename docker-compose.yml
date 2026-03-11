@@ -1,0 +1,14 @@
+version: "3.8"
+
+services:
+  discovery:
+    build:
+      context: .
+      dockerfile: discovery/Dockerfile
+    ports:
+      - "8761:8761"
+    networks:
+      - microservices-networks
+networks:
+  microservices-networks:
+    driver: bridge

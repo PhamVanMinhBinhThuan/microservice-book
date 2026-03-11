@@ -1,7 +1,7 @@
 # Stage 1: Use Maven for building
 FROM maven:3.8.5-openjdk-17-slim AS build
 WORKDIR /app
-COPY . ./discovery
+COPY ./discovery ./discovery
 WORKDIR /app/discovery
 RUN mvn clean package -DskipTests
 
