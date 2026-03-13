@@ -1,10 +1,13 @@
 package com.ltfullstack.userservice.service.impl;
 
 import com.ltfullstack.userservice.dto.CreateUserRequestDTO;
+import com.ltfullstack.userservice.dto.LoginRequestDTO;
 import com.ltfullstack.userservice.dto.UserResponseDTO;
 import com.ltfullstack.userservice.dto.identity.Credential;
 import com.ltfullstack.userservice.dto.identity.TokenExchangeParam;
+import com.ltfullstack.userservice.dto.identity.TokenExchangeResponse;
 import com.ltfullstack.userservice.dto.identity.UserCreationParam;
+import com.ltfullstack.userservice.dto.identity.UserTokenExchangeParam;
 import com.ltfullstack.userservice.entity.User;
 import com.ltfullstack.userservice.repository.IdentityClient;
 import com.ltfullstack.userservice.repository.UserRepository;
@@ -41,6 +44,7 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public UserResponseDTO createUser(CreateUserRequestDTO dto) {
+        // Exchange client token
         var token = identityClient.exchangeClientToken(TokenExchangeParam.builder()
                 .grant_type("client_credentials")
                 .client_secret(clientSecret)
@@ -48,11 +52,10 @@ public class UserServiceImpl implements IUserService {
                 .scope("openid")
                 .build());
 
-        log.info("Token info",token);
+        log.info("Token info {}", token);
         var creationResponse = identityClient.createUser(UserCreationParam.builder()
                 .username(dto.getUsername())
                 .firstName(dto.getFirstName())
-                .lastName(dto.getLastName())
                 .lastName(dto.getLastName())
                 .email(dto.getEmail())
                 .enabled(true)
@@ -110,6 +113,19 @@ public class UserServiceImpl implements IUserService {
     @Override
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
+    }
+
+    @Override
+    public TokenExchangeResponse login(LoginRequestDTO dto) {
+        var token = identityClient.exchangeUserToken(UserTokenExchangeParam.builder()
+                .grant_type("password")
+                .client_id(clientId)
+                .client_secret(clientSecret)
+                .scope("openid")
+                .username(dto.getUsername())
+                .password(dto.getPassword())
+                .build());
+        return token;
     }
 
     private UserResponseDTO toDTO(User user) {
