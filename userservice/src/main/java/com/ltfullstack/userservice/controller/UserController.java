@@ -22,7 +22,10 @@ public class UserController {
     }
 
     @GetMapping
-    public ResponseEntity<List<UserResponseDTO>> getAllUsers() {
+    public ResponseEntity<List<UserResponseDTO>> getAllUsers(
+        @RequestHeader(value = "X-User-Id", required = false) String userId, 
+        @RequestHeader(value = "X-Username", required = false) String username) {
+        System.out.println("Received X-User-Id: " + userId + " and X-Username: " + username);
         return ResponseEntity.ok(userService.getAllUsers());
     }
 
