@@ -15,12 +15,13 @@ public class SecurityConfig {
     SecurityWebFilterChain filterChain(ServerHttpSecurity http) throws Exception {
         http.csrf(ServerHttpSecurity.CsrfSpec::disable)
                 .authorizeExchange(exchange -> exchange
-                        .pathMatchers("/api/v1/public/**").permitAll() // Cho phép không auth
-                        .anyExchange().authenticated()          // Còn lại cần xác thực
-                )
-                .oauth2ResourceServer(resourceServer -> resourceServer
-                        .jwt(Customizer.withDefaults())
+                        // .pathMatchers("/api/v1/public/**").permitAll() // Cho phép không auth
+                        // .anyExchange().authenticated()          // Còn lại cần xác thực
+                        .anyExchange().permitAll()              // Tạm thời cho phép tất cả để test
                 );
+                // .oauth2ResourceServer(resourceServer -> resourceServer
+                //         .jwt(Customizer.withDefaults())
+                // );
         return http.build();
     }
 }
