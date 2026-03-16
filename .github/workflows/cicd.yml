@@ -23,12 +23,12 @@ jobs:
           docker compose -f docker-compose.yml build discovery
           docker compose -f docker-compose.yml push discovery
   deploy:
-    # needs: build-and-push
+    needs: build-and-push
     runs-on: ubuntu-latest
   
     steps:
-      # - name: Checkout repository
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
       - name: executing remote ssh commands using password
         uses: appleboy/ssh-action@v1.2.0
