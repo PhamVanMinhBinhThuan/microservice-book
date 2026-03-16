@@ -40,5 +40,6 @@ jobs:
           key: ${{ secrets.SERVER_KEY }}
           port: ${{ secrets.SERVER_PORT }}
           script: whoami
+
           # envs: DOCKER_USERNAME
           # script_path: scripts/deploy.sh
