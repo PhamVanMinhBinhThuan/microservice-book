@@ -12,4 +12,5 @@ public class DiscoveryApplication {
 		SpringApplication.run(DiscoveryApplication.class, args);
 	}
 
+	
 }
