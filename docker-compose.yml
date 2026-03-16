@@ -5,6 +5,7 @@ services:
     build:
       context: .
       dockerfile: discovery/Dockerfile
+    image: "${DOCKER_USERNAME}/discovery:latest"
     ports:
       - "8761:8761"
     networks:
